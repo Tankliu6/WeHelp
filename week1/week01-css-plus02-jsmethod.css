@@ -138,7 +138,7 @@ img{
     background-color: rgb(238, 253, 251);
     border: 1px solid #000;
     position: absolute;
-    top:0; right:0; width:50vw; height:50vh;
+    top:0; right:0; width:50vw; height:100vh;
 }
 .hamburger > div{
     margin: 1em;
