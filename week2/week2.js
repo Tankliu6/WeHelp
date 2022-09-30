@@ -120,3 +120,29 @@ function twoSum(nums, target){
 };
 let result=twoSum([2, 11, 7, 15], 9);
 console.log(result); // show [0, 2] because nums[0]+nums[2] is 9
+console.log(第六題)
+// 第六題
+function maxZeros(nums){
+    // 請用你的程式補完這個函式的區塊
+    let i = 0;
+    let counter = 0; // 計數器
+    let storeArray=[];
+    while(i < nums.length){
+        if(nums[i] == 0){
+            counter++;
+            storeArray.push(counter);
+            i++;
+        }else if(nums[i] == 1){
+            storeArray.push(counter);
+            counter=0; // 碰到 1 代表 counter 要歸零
+            i++;
+        }
+        storeArray.sort(function(a, b){return b - a}); // .sort() 會將串列轉成 "string" 並利用 UTF-16 code nuits 進行比較，故要利用 comapre function 去比較 "int" 大小!!
+    };
+    console.log("計算結果:", storeArray[0]);
+    }
+
+maxZeros([0, 1, 0, 0]); // 得到 2
+maxZeros([1, 0, 0, 0, 0, 1, 0, 1, 0, 0]); // 得到 4
+maxZeros([1, 1, 1, 1, 1]); // 得到 0
+maxZeros([0, 0, 0, 1, 1]) // 得到 3
