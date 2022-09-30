@@ -131,3 +131,23 @@ def twoSum(nums, target):
         #     j=i
 result=twoSum([2, 11, 7, 15], 9)
 print("計算結果:",result) # show [0, 2] because nums[0]+nums[2] is 9
+print("第六題")
+# 第六題
+def maxZeros(nums):
+# 請用你的程式補完這個函式的區塊
+    counter = 0
+    storeList = []
+    for i in range(len(nums)):
+        if nums[i] == 0:
+            counter+=1
+            storeList.append(counter)        
+        if nums[i] == 1:
+            storeList.append(counter)
+            counter = 0
+    MaxZreoCountr = max(storeList)
+    print("計算結果:", MaxZreoCountr) 
+
+maxZeros([0, 1, 0, 0]) # 得到 2
+maxZeros([1, 0, 0, 0, 0, 1, 0, 1, 0, 0]) # 得到 4
+maxZeros([1, 1, 1, 1, 1]) # 得到 0
+maxZeros([0, 0, 0, 1, 1]) # 得到 3
