@@ -1,7 +1,7 @@
 ## WeHelp week5 hw readme
 ###### 要求二：建立資料庫和資料表
 ```語法```</br>
-![week5_pic](week5_pic/q2_001.PNG)
+![week5_pic](week5_pic/q2_001.PNG)</br>
 ```表實際情況```</br>
 ![week5_pic](week5_pic/q2_002.PNG)
 ###### 要求三：SQL CRUD
