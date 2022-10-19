@@ -44,3 +44,25 @@
 + <div style="font-size:0.7em">建立新資料表紀錄留⾔資訊，取名字為 message。</div>
 ![week5_pic](week5_pic/q3_013.PNG)
 ![week5_pic](week5_pic/q3_014.PNG)
+
++ <div style="font-size:0.7em">使⽤ SELECT 搭配 JOIN 語法，取得所有留⾔，結果須包含留⾔者會員的姓名。</div>
+```建立message 留言資料```</br>
+![week5_pic](week5_pic/q3_015.PNG)</br>
+```確認message 資料表```</br>
+![week5_pic](week5_pic/q3_016.PNG)
+```結果```</br>
+![week5_pic](week5_pic/q3_017.PNG)
+
++ <div style="font-size:0.7em">使⽤ SELECT 搭配 JOIN 語法，取得 member 資料表中欄位username 是 test 的所有留⾔，資料中須包含留⾔者會員的姓名。</div>
+```增加 member 會員資料```</br>
+![week5_pic](week5_pic/q3_018.PNG)</br>
+```結果```</br>
+![week5_pic](week5_pic/q3_019.PNG)
+
++ <div style="font-size:0.7em">使⽤ SELECT、SQL Aggregate Functions 搭配 JOIN 語法，取得 member 資料表中欄位 username 是 test 的所有留⾔平均按讚數。</div>
+``` message 表中只有一位 username 是 test 的人留言```</br>
+![week5_pic](week5_pic/q3_020.PNG)</br>
+``` 增加 message 表中對應 member 表中username 是 test 的人數```</br>
+![week5_pic](week5_pic/q3_021.PNG)</br>
+``` 新增過後的平均試算```</br>
+![week5_pic](week5_pic/q3_022.PNG)</br>
