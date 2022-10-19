@@ -1,0 +1,8 @@
+1.主內容格子的間隔:
+| 關鍵技術在於 gap
+
+2.CSS也可以直接在後面加上事件造成動態改變外觀，超酷DER
+可以讓一些簡單的動作免去DOM的必要性!!
+https://www.w3schools.com/howto/howto_js_active_element.asp
+
+

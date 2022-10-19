@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>Test</title>
+        <style>
+            /* .text span {
+             visibility:hidden;
+            }
+            .text:before {
+             content: 'after';
+            } */
+            .text span {
+            display: none;
+            }
+            .text:after {
+            content: 'the changed text';
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div class="text">
+            <span>before</span>
+        </div> -->
+        <div class="text">
+            <span>the original text</span>
+        </div>
+    </body>
+</html>
+

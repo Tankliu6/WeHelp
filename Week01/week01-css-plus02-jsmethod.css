@@ -1,0 +1,213 @@
+/* html */
+html{
+    font-size: 1.25em;
+    position: relative;
+}
+body{
+    margin:0px;
+}
+img{
+    width:100%;
+}
+/* 三大區塊底部 */
+.background-verticalflex{
+    display: flex;
+    flex-direction: column; /* 使物件垂直排列 */
+
+}
+
+/* 第一大區塊底部flex */
+.up-flex{
+    display:flex;
+    justify-content: space-between; /* 將區塊分到最左右兩邊 */
+    align-items: center; /* 垂直置中 */
+    padding: 1em;
+}
+
+/* 第一大區塊左邊 */
+.up-left{
+    font-weight: bold;
+}
+
+/* 第一大區塊右邊 */
+.up-right-flex{
+    display: flex;
+}
+/* 第一大區塊右邊的div */
+.up-right-flex > div{
+    margin-left: 1em;
+}
+
+/* 第二大區塊flex */
+.middle-flex{
+    display: flex;
+    align-items: center; /* 垂直置中 */
+    justify-content: center; /* 水平置中 */
+    height: 300px;
+    background-color: rgba(202, 238, 254, 0.912);
+}
+.middle-flex > div{
+    font-weight: bold;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+/* 第三大區塊底部flex */
+.bottom-flex{
+    display: flex;
+    justify-content: center;   
+}
+
+.BottomBox1200px-flex{
+    display:flex;
+    flex-direction: column;
+    margin-top: 1em;
+    width:1200px;
+    gap: 1em;
+    /* background-color: blueviolet; /*方便觀察小格子在主內容的樣子 */
+}
+
+.up-content-flex{
+    display: flex;
+    flex-wrap:wrap;
+    gap: 1em;
+}
+
+.up-content-left{
+    display: flex;
+    align-items: center;
+    flex:45%;
+    height:50px;
+    background-color: rgba(142, 198, 221, 0.912);
+}
+
+.up-content-right{
+    display: flex;
+    align-items: center;
+    flex:45%;
+    height:50px;
+    background-color: rgba(142, 198, 221, 0.912);
+}
+
+.picture-title-flex{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.picture-title{
+    /* display:flex; */
+    /* flex-direction: column;  */
+    /* align-items: center;
+    justify-content: center; */
+    background-color: rgba(142, 198, 221, 0.912);  
+    position: relative; /* 為了讓右上角星星當作body去進行定位 */
+}
+
+.title-position{
+    display: flex; 
+    position:absolute; /* 相對於原本位置往上移動到img中 */
+    bottom: 0px;/* 貼齊下方區塊底線 */ width: 100%; /* 將黃色透明框框左右撐滿 */
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;  /* 透明度 */
+    background-color: rgb(118, 213, 200);
+    height: 2em;
+    /* padding: 1em; */ /* 這個會導致width:100%時炸出container!! */
+}
+
+
+/* 主內容右上角星星 */
+.star{
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.img-title{
+    height:100%; /* 讓主內容圖片跟著縮放填滿下方區塊 */
+}
+
+/* 600以下漢堡選單 */
+.hamburger{
+    position:relative; z-index: 99; /* z-index 為了讓表單開啟後能高於 coverlayer(點擊表單以外關閉的關鍵) */
+    display: flex;
+    align-items: center; text-align: center;
+    background-color: rgb(238, 253, 251);
+    border: 1px solid #000;
+    position: absolute;
+    top:0; right:0; width:50vw; height:100vh;
+}
+.hamburger > div{
+    margin: 1em;
+}
+.hamburger > div:hover{
+    background-color: rgb(186, 255, 232);
+}
+/* 配合DOM打開右上漢堡圖示 */
+.open{ 
+    display:block;
+}
+/* 讓title1~title4在點擊漢堡前為關閉狀態，配合DOM進行class增減 */
+.close{
+    display:none;
+}
+/* 讓漢堡表單點開後點擊表單以外可以觸發的覆蓋層 參考出處 https://blog.csdn.net/weixin_43900374/article/details/104458009 */
+.coverlayer{
+    width:100%; height:100%; position:absolute; 
+    top:0; left:0; opacity: 0; display: block;
+}
+/* 1200px up */
+@media (min-width:1201px){
+    .img-title{
+        width:285px; /* 在像素高於1200px時，固定寬度285px可以使1em的gap均等 */
+    }
+}
+
+/* 600px up */
+@media (min-width:601px){
+    .up-right-flex-600px{
+        display: none;
+    }
+    .hamburger{
+        display: none;
+    }
+}
+
+/* 1200px~600px */
+@media (max-width:1200px){
+    .bottom-flex{
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .picture-title{
+        flex:45%;
+    }
+}
+
+
+/* 600px~360px */
+@media (max-width:600px){
+    .up-right-flex{
+        display: none;
+    }
+    .up-right-flex-600px{
+        display: block;
+    }
+    .up-right-flex-600px:hover{
+        background-color: rgb(207, 229, 249);
+    }
+    .up-right-flex-600px > img{
+        width:100%;
+        height:50px;
+    }
+    .up-content-left{
+        flex:100%;
+    }
+    
+    .up-content-right{
+        flex:100%;
+    }
+}

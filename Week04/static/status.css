@@ -1,0 +1,78 @@
+html, body{
+    margin: 0;
+    height:100%;
+    background-color: rgb(171, 105, 25);
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+header{
+    display: flex;
+    justify-content: center; align-items: center;
+    margin: auto; left: 0; right:0;
+    width:300px;
+    height:50px;
+    background-color: rgb(57, 205, 155);
+    text-align: center;
+    font-size: 1.4em;
+    color: rgb(246, 248, 105);
+}
+
+.login-title{
+    display: flex;
+    justify-content: center; align-items: center;
+    height:3em;
+    position: relative; font-size: 1.2em;
+    box-sizing: content-box;
+    top: 1em; font-weight: bold;
+}
+
+.login-form{
+    position: relative; z-index: 1; /* 不然會被登入系統擋住按不到 */
+}
+
+.login-form-AccPass{
+    margin-bottom: 0.5em;
+}
+
+.login-background{
+    margin: auto; left: 0; right: 0;
+    background-color: rgb(254, 248, 170);
+    font-size: 1em; width:300px; height:100px;
+    text-align: center; color: rgb(87, 87, 87);
+}
+
+.login-account-password{
+    margin-right: 0.5em;
+}
+
+.login-account-password:hover{
+    background-color: rgb(202, 255, 250);
+}
+
+.login-button{
+    margin-top: 3em;
+    font-weight: bolder;
+}
+
+.login-button > p:hover{
+    margin-top: 40px;
+    box-shadow: 0 3px 15px 3px #ffac267a;
+}
+
+.login-button > p{
+    margin: auto; left: 0; right: 0;
+    width:3em; 
+    background-color: rgb(76, 246, 183);
+    border-radius: 20%;
+}
+
+.signout{
+    position:relative;
+    z-index: 1;
+    font-size: large;
+}
