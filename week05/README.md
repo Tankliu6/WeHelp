@@ -1,8 +1,8 @@
 ## WeHelp week5 hw readme
 ###### 要求二：建立資料庫和資料表
-```語法```
+```語法```</br>
 ![week5_pic](week5_pic/q2_001.PNG)
-```表實際情況```
+```表實際情況```</br>
 ![week5_pic](week5_pic/q2_002.PNG)
 ###### 要求三：SQL CRUD
 + <div style="font-size:0.7em">使⽤ INSERT 指令新增⼀筆資料到 member 資料表中，這筆資料的 username 和password 欄位必須是 test。接著繼續新增⾄少 4 筆隨意的資料。</div>
