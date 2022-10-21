@@ -70,19 +70,18 @@
 ###### 額外練習
 ```紀錄按讚數量，記錄每一個留言的按讚會員```
 + <div style="font-size:0.7em">先建立一張中介表，me_id 及 m_id 分別對應 message及member 表中的 id<span style="background-color:#ebfaeb">(intermediate table)</span></div>
-```中介表```
-![week5_pic](week5_pic/extra_001.PNG)
-```根據留言編號取得那些會員按過讚```
-![week5_pic](week5_pic/extra_003.PNG)
+```中介表```</br>
+![week5_pic](week5_pic/extra_001.PNG)</br>
+```根據留言編號取得那些會員按過讚```</br>
+![week5_pic](week5_pic/extra_003.PNG)</br>
 + <div style="font-size:0.7em">會員若是嘗試對留言按讚：要先檢查該會員id是否按過讚，未按過才+1讚並記錄按讚會員</div>
-```加入me_id=1 及 m_id=2 這組資料前的中介表```
-![week5_pic](week5_pic/extra_004.PNG)
-```增加已經對留言1按過讚的會員2，中介表無增加該資料```
-![week5_pic](week5_pic/extra_005.PNG)
-```計算各留言總計有多少讚```
-![week5_pic](week5_pic/extra_007.PNG)
-```增加尚未對留言1按過讚的會員3，加入成功```
+```加入me_id=1 及 m_id=2 這組資料前的中介表```</br>
+![week5_pic](week5_pic/extra_004.PNG)</br>
+```增加已經對留言1按過讚的會員2，中介表無增加該資料```</br>
+![week5_pic](week5_pic/extra_005.PNG)</br>
+```計算各留言總計有多少讚```</br>
+![week5_pic](week5_pic/extra_007.PNG)</br>
+```增加尚未對留言1按過讚的會員3，加入成功```</br>
 ![week5_pic](week5_pic/extra_008.PNG)
 ![week5_pic](week5_pic/extra_009.PNG)
 ![week5_pic](week5_pic/extra_010.PNG)
-1
