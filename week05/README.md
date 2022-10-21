@@ -82,6 +82,6 @@
 ```計算各留言總計有多少讚```</br>
 ![week5_pic](week5_pic/extra_007.PNG)</br>
 ```增加尚未對留言1按過讚的會員3，加入成功```</br>
-![week5_pic](week5_pic/extra_008.PNG)
-![week5_pic](week5_pic/extra_009.PNG)
-![week5_pic](week5_pic/extra_010.PNG)
+![week5_pic](week5_pic/extra_008.PNG)</br>
+![week5_pic](week5_pic/extra_009.PNG)</br>
+![week5_pic](week5_pic/extra_010.PNG)</br>
