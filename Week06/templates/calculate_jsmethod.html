@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WeHelp-w4-hw home_page</title>
+        <link rel="stylesheet" type="text/css" href="calculate_jsmethod.css" />
+    </head>
+    <body>
+        <div> <!-- 為了使用 flex 完美置中而出現的 div -->
+            <header>
+                歡迎光臨，請輸入帳號密碼
+            </header>
+            <div class="login-background">
+                <div class="login-title">
+                    登入系統
+                </div>
+                <form class="login-form" action="/signin" method="POST">
+                    <div class="login-form-AccPass"><label class="login-account-password" for="account">帳號</label><input type="text" id="account" name="account"></div>
+                    <div class="login-form-AccPass"><label class="login-account-password" for="password">密碼</label><input type="text" id="password" name="password"></div>
+                    <div class="login-button-icon"><label for="click-login"><p>登入</p></label></div> <!-- 使用 label 功能達成客製視覺化登入按鈕 -->
+                    <div class="login-button"><button id="click-login">登入</button></div>
+                </form>
+                    <div class="login-form-AccPass"><label class="login-account-password" for="calculate">正整數</label><input type="number" id="calculate" name="calculate"></div>
+                    <div class="login-button-icon"><label for="click-calculate"><p>計算</p></div> <!--使用 label 功能達成客製視覺化計算按鈕-->
+                    <div class="login-button"><button onclick=square() id="click-calculate">計算</button></div>   
+            </div>
+        </div>
+        <script type="text/javascript" src="calculate_jsmethod.js"></script>
+    </body>    
+</html>

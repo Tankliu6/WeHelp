@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WeHelp-w4-hw home_page</title>
+        <link rel="stylesheet" type="text/css" href="home.css" />
+    </head>
+    <body>
+        <div> <!-- 為了使用 flex 完美置中而出現的 div -->
+            <header>
+                歡迎光臨，請輸入帳號密碼
+            </header>
+            <div class="login-background">
+                <div class="login-title">
+                    登入系統
+                </div>
+                <form class="login-form" action="/signin" method="POST">
+                    <div class="login-form-AccPass"><label class="login-account-password" for="account">帳號</label><input type="text" id="account" name="account"></div>
+                    <div class="login-form-AccPass"><label class="login-account-password" for="password">密碼</label><input type="text" id="password" name="password"></div>
+                    <!-- <div class="login-button" role="button" tabindex="0" onclick="handleCommand(event)" onkeydown="handleCommand(event)"><span>登入</span></div> -->
+                    <div class="login-button"><button>登入</button></div>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript" src="home.js"></script>
+    </body>    
+</html>
