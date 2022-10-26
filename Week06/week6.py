@@ -6,12 +6,10 @@ from flask import url_for
 from flask import session
 import os # 產生 session 亂數密鑰
 import mysql.connector # 連接 python 與 mysql 資料庫
-def mysqlPassword():
-    return "12345678"
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
-    password=mysqlPassword(),
+    password="-----",
     database="website"
 )
 mycursor = mydb.cursor()
