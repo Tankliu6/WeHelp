@@ -6,7 +6,7 @@ from flask import url_for
 from flask import session
 import os # 產生 session 亂數密鑰
 import mysql.connector # 連接 python 與 mysql 資料庫
-from mySQL import getPassword
+from mySQL import getPassword # 隱藏 password 的方法
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
@@ -14,7 +14,7 @@ mydb=mysql.connector.connect(
     database="website"
 )
 mycursor = mydb.cursor()
-  
+
 # 建立 Application 物件，可以設定靜態檔案的路徑處理
 # 所有在 static 資料夾底下的檔案，都對應到網址路徑 /檔案名稱
 week6=Flask(
@@ -39,22 +39,22 @@ def signin():
     # 接收 POST 方法的 Query String
     username=request.form["username"]
     password=request.form["password"]
-    mycursor.execute("SELECT id, name, username, password FROM member")
+    sql = "SELECT id, name, username, password FROM member WHERE username=%s"
+    value = (username, )
+    mycursor.execute(sql, value)
     myresult=mycursor.fetchall()
-    for x in myresult:
-        signinCheckRow = [''.join(str(tup)) for tup in x] # 因為''.join(iterable), iterable: Required. Any iterable object where all the returned values are strings, id 為 int 所以需要轉成 str 才能一起被放進 checkrow
-        if username == signinCheckRow[2] and password == signinCheckRow[3]:
-            session.update({
-                "id":signinCheckRow[0],
-                "name":signinCheckRow[1],
-                "username":signinCheckRow[2],
-                "password":signinCheckRow[3],
-                "user-status":"已登入"
-            })
-            return redirect("/member")
     if username=="" or password=="": # url_for('要去的地方', 變數名稱='夾帶資訊')
         return redirect(url_for('error', message='請輸入帳號、密碼'))
-    elif username!=signinCheckRow[2] or password!=signinCheckRow[3]:
+    elif username == myresult[0][2] and password == myresult[0][3]:
+        session.update({
+            "id":myresult[0][0],
+            "name":myresult[0][1],
+            "username":myresult[0][2],
+            "password":myresult[0][3],
+            "user-status":"已登入"
+        })
+        return redirect("/member")
+    else:
         return redirect(url_for('error', message='帳號、或密碼輸入錯誤'))
     # 要注意 logical operators 運用 and 及 or 時兩個變數都要寫判斷式
     # redirect 中的 code=302(307) 時為 GET(POST) 方法。
@@ -69,10 +69,7 @@ def member():
     name=session["name"]
     #留言資料表中有資料，取出所有留言者的名字_name(inner join)及對應的留言
     mycursor.execute("SELECT member.name, message.content FROM member INNER JOIN message ON member.id = message.member_id")
-    # myNameContent=[''.join(tup) for tup in mycursor.fetchall()]
     myNameContent=mycursor.fetchall()
-    # for x in myNameContent:
-    #     print(x)
     return render_template(
         "member.html", 
         header="歡迎光臨，這是會員頁", 
