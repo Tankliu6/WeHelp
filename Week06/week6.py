@@ -7,12 +7,14 @@ from flask import session
 import os # 產生 session 亂數密鑰
 import mysql.connector # 連接 python 與 mysql 資料庫
 from mySQL import getPassword # 隱藏 password 的方法
+# 連線(connection)到資料庫
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
     password=getPassword(),
     database="website"
 )
+# 創造一台往返資料庫與後端的搬運卡車(cursor();)
 mycursor = mydb.cursor()
 
 # 建立 Application 物件，可以設定靜態檔案的路徑處理
@@ -39,11 +41,11 @@ def signin():
     # 接收 POST 方法的 Query String
     username=request.form["username"]
     password=request.form["password"]
-    sql = "SELECT id, name, username, password FROM member WHERE username=%s"
-    value = (username, )
-    mycursor.execute(sql, value)
-    myresult=mycursor.fetchall()
-    if username=="" or password=="": # url_for('要去的地方', 變數名稱='夾帶資訊')
+    sql = "SELECT id, name, username, password FROM member WHERE username=%s" # SQL 指令
+    value = (username, ) # 與後端程式互動的變數
+    mycursor.execute(sql, value) # 卡車執行，前往資料執行 SQL 指令
+    myresult=mycursor.fetchall() # fetchall()將所有資料取出
+    if username=="" or password=="":
         return redirect(url_for('error', message='請輸入帳號、密碼'))
     elif username == myresult[0][2] and password == myresult[0][3]:
         session.update({
@@ -66,8 +68,8 @@ def member():
     print(session)
     if session["user-status"] == "未登入" or session["user-status"] == "":
         return redirect("/")
+    #使用 INNER JOIN 透過外鍵 member_id 取出 message 資料表中留言者的名字(name)及對應的留言(content)
     name=session["name"]
-    #留言資料表中有資料，取出所有留言者的名字_name(inner join)及對應的留言
     mycursor.execute("SELECT member.name, message.content FROM member INNER JOIN message ON member.id = message.member_id")
     myNameContent=mycursor.fetchall()
     return render_template(
@@ -115,7 +117,7 @@ def signup():
     password=request.form["password-signUp"]
     sql = "SELECT username FROM member WHERE username=%s"
     value = (username, )
-    mycursor.execute(sql, value) # 將所有 username 從資料庫取回後端程式
+    mycursor.execute(sql, value)
     myresult=mycursor.fetchall() # 卸下卡車(cursor)上的資料，指定給 myresult
     # 確認新註冊的 username 是否已經在資料庫(database)當中
     if name == "" or username == "" or password == "": # 姓名、帳號、密碼，留白時會出現無效註冊
