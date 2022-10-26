@@ -113,16 +113,16 @@ def signup():
     name=request.form["name"]
     username=request.form["username-signUp"]
     password=request.form["password-signUp"]
-    mycursor.execute("SELECT username FROM member") # 將所有 username 從資料庫取回後端程式
+    sql = "SELECT username FROM member WHERE username=%s"
+    value = (username, )
+    mycursor.execute(sql, value) # 將所有 username 從資料庫取回後端程式
     myresult=mycursor.fetchall() # 卸下卡車(cursor)上的資料，指定給 myresult
-    usernameRow=[] # myresult 是一個裝滿 tuple 的 list [(username, ),(username, ),...
-    for x in myresult:
-        string = ''.join(x) # 由mysql 回傳回來的每一筆資料為 tuple, 需要先轉換成 string 才能和 username 進行比較
-        usernameRow.append(string)
     # 確認新註冊的 username 是否已經在資料庫(database)當中
-    if username in usernameRow:
+    if name == "" or username == "" or password == "": # 姓名、帳號、密碼，留白時會出現無效註冊
+        return render_template("status.html", header="失敗頁面", login_infor="無效註冊")
+    elif username in myresult:
         return render_template("status.html", header="失敗頁面", login_infor="帳號已經被註冊")
-    elif username not in usernameRow:
+    elif username not in myresult:
         sql = "INSERT INTO member(name, username, password) VALUES (%s, %s, %s)" 
         value = (name, username, password)
         mycursor.execute(sql, value) # 卡車裝載指令 sql, 及%s所用的值 
