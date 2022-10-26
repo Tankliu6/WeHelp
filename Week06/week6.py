@@ -12,23 +12,8 @@ mydb=mysql.connector.connect(
     password="12345678",
     database="website"
 )
-# print(mydb)
 mycursor = mydb.cursor()
-# mycursor.execute("SHOW DATABASES")
-# for x in mycursor:
-#     print(x)
-# mycursor.execute("SELECT * FROM member")
-# myresult = mycursor.fetchall()
-
-# for x in myresult:
-#     print(x)
-
-# mycursor.execute("SELECT id, name, username, password FROM member")
-# myresult = mycursor.fetchall()
-# for x in myresult:
-#     test = [''.join(str(tup)) for tup in x]
-#     print(test[3])
-   
+  
 # 建立 Application 物件，可以設定靜態檔案的路徑處理
 # 所有在 static 資料夾底下的檔案，都對應到網址路徑 /檔案名稱
 week6=Flask(
