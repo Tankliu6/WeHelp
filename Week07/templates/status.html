@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WeHelp-w4-hw home_page</title>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='status.css')}}" />
+    </head>
+    <body>
+        <div>
+            <header class="header">
+                {{ header }}
+            </header>
+            <div class="login-background">
+                <div class="login-title">
+                    {{ login_infor }}
+                </div>
+                <br/>
+                <a class=signout href="/signout">
+                    {{ signout }}
+                </a>
+            </div>
+        </div>
+        <script type="text/javascript" src="status.js"></script>
+    </body>    
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WeHelp-w6-hw member-page</title>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='member.css')}}" />
+    </head>
+    <body>
+        <div>
+            <header class="header">
+                {{ header }}
+            </header>
+            <div class="login-background">
+                <div class="login-title">
+                    {{ login_infor }}
+                </div>
+                <br/>
+                <a class=signout href="/signout">
+                    {{ signout }}
+                </a>
+                <form class="login-form" action="/message" method="POST">
+                    <div class="login-title">快來留言吧~大家!</div>
+                    <div class="login-form-AccPass"><label class="login-account-password" for="message">內容</label><input type="text" id="message" name="message"></div>
+                    <div class="login-button-icon"><label for="click-calculate"><p>送出</p></div> <!--使用 label 功能達成客製視覺化計算按鈕-->
+                    <div class="login-button"><button id="click-calculate">送出</button></div>   
+                </form>
+                <div>
+                    {% for text in content %}
+                    <div class="message">
+                        <span>{{ text[0] }}:</span>&nbsp;&nbsp;{{ text[1] }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="member.js"></script>
+    </body>    
+</html>

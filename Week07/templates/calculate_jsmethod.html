@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WeHelp-w6-hw home_page</title>
+        <link rel="stylesheet" type="text/css" href="calculate_jsmethod.css" />
+    </head>
+    <body>
+        <div> <!-- 為了使用 flex 完美置中而出現的 div -->
+            <header>
+                歡迎光臨，請輸入帳號密碼
+            </header>
+            <div class="login-background">
+                <div class="login-title">
+                    註冊帳號
+                </div>
+                <form class="login-form" action="/signup" method="POST">
+                    <div class="login-form-AccPass"><label class="login-account-password" for="name">姓名</label><input type="text" id="name" name="name"></div>
+                    <div class="login-form-AccPass"><label class="login-account-password" for="username-signUp">帳號</label><input type="text" id="username-signUp" name="username-signUp"></div>
+                    <div class="login-form-AccPass"><label class="login-account-password" for="password-signUp">密碼</label><input type="text" id="password-signUp" name="password-signUp"></div>
+                    <div class="login-button-icon"><label for="click-calculate"><p>註冊</p></div> <!--使用 label 功能達成客製視覺化計算按鈕-->
+                    <div class="login-button"><button id="click-calculate">註冊</button></div>   
+                </form>
+                <hr style="background-color: rgb(217, 255, 111); height: 2px;" />
+                <div class="login-title">
+                    登入系統
+                </div>
+                <form class="login-form" action="/signin" method="POST">
+                    <div class="login-form-AccPass"><label class="login-account-password" for="username">帳號</label><input type="text" id="username" name="username"></div>
+                    <div class="login-form-AccPass"><label class="login-account-password" for="password">密碼</label><input type="text" id="password" name="password"></div>
+                    <div class="login-button-icon"><label for="click-login"><p>登入</p></label></div> <!--使用 label 功能達成客製視覺化登入按鈕-->
+                    <div class="login-button"><button id="click-login">登入</button></div>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript" src="calculate_jsmethod.js"></script>
+    </body>    
+</html>
