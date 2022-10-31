@@ -30,6 +30,7 @@ week6.secret_key=os.urandom(12).hex() # 設定 Session 的密鑰，才能開始�
 # 使用 GET 方法，處理路徑 / 的對應函式
 @week6.route("/", methods=["GET"])
 def home(): # 用來回應路徑 / 的對應函式
+    session["user-status"] = {}
     print(session)
     return render_template("calculate_jsmethod.html")
 
@@ -66,7 +67,7 @@ def signin():
 @week6.route("/member")
 def member():
     print(session)
-    if session["user-status"] == "未登入" or session["user-status"] == "":
+    if session["user-status"] != "已登入":
         return redirect("/")
     #使用 INNER JOIN 透過外鍵 member_id 取出 message 資料表中留言者的名字(name)及對應的留言(content)
     name=session["name"]
@@ -82,16 +83,20 @@ def member():
     )
     
 # 處理路徑 /message 的對應函式
-@week6.route("/message", methods=["POST"])
+@week6.route("/message", methods=["POST", "GET"]) # 直接輸入 url 訪問 127.0.0.1:3000/message 時會以 GET 方法訪問
 def message():
-    content=request.form["message"]
-    id=int(session["id"]) # 存放在 cookie 的 id
-    sql=("INSERT INTO message (member_id, content) VALUES(%s, %s)") # 將資料放進留言表當中
-    value=(id, content)
-    mycursor.execute(sql, value)
-    mydb.commit()
-    print(mycursor.rowcount, "record inserted.") # 會員輸入內容，確認放進留言資料表中
-    return redirect("/member")
+    if session["user-status"] != "已登入": # 防止非會員進入
+        redirect("/")
+    if request.method == "POST":
+        content=request.form["message"]
+        id=int(session["id"]) # 存放在 cookie 的 id
+        sql=("INSERT INTO message (member_id, content) VALUES(%s, %s)") # 將資料放進留言表當中
+        value=(id, content)
+        mycursor.execute(sql, value)
+        mydb.commit()
+        print(mycursor.rowcount, "record inserted.") # 會員輸入內容，確認放進留言資料表中
+        return redirect("/member")
+    return redirect("/") # 防止url直接進入此網頁
 
 # 處理路徑 /error 的對應函式
 @week6.route("/error")
@@ -115,7 +120,7 @@ def signup():
     name=request.form["name"]
     username=request.form["username-signUp"]
     password=request.form["password-signUp"]
-    sql = "SELECT username FROM member WHERE username=%s"
+    sql = "SELECT username FROM member WHERE username = %s"
     value = (username, )
     mycursor.execute(sql, value)
     myresult=mycursor.fetchall() # 卸下卡車(cursor)上的資料，指定給 myresult
