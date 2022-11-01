@@ -140,9 +140,6 @@ def signup():
     mycursor.execute(sql, value)
     myresult=mycursor.fetchall() # 卸下卡車(cursor)上的資料，指定給 myresult
     # 確認新註冊的 username 是否已經在資料庫(database)當中
-    print(username)
-    print(myresult)
-    print(username in myresult)
     if name == "" or username == "" or password == "": # 姓名、帳號、密碼，留白時會出現無效註冊
         return render_template("status.html", header="失敗頁面", login_infor="無效註冊")
     for resultUsername in myresult:
