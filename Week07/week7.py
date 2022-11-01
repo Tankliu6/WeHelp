@@ -1,4 +1,3 @@
-from colorama import Cursor
 from flask import Flask # 載入 Flask
 from flask import request # 載入 Request 物件
 from flask import render_template # 載入 render_template
@@ -8,6 +7,7 @@ from flask import session
 import os # 產生 session 亂數密鑰
 import mysql.connector # 連接 python 與 mysql 資料庫
 from mySQL import getPassword # 隱藏 password 的方法
+import json # 處理JSON格式資料
 # 連線(connection)到資料庫
 mydb=mysql.connector.connect(
     host="localhost",
@@ -15,8 +15,14 @@ mydb=mysql.connector.connect(
     password=getPassword(),
     database="website"
 )
-# 創造一台往返資料庫與後端的搬運卡車(cursor();)
-mycursor = mydb.cursor()
+class create_dict(dict):
+    #__init__function
+    def __init__(self):
+        self = dict()
+    #function to add key:value
+    def add(self, key, value):
+        self[key] = value
+
 
 # 建立 Application 物件，可以設定靜態檔案的路徑處理
 # 所有在 static 資料夾底下的檔案，都對應到網址路徑 /檔案名稱
@@ -45,8 +51,10 @@ def signin():
     password=request.form["password"]
     sql = "SELECT id, name, username, password FROM member WHERE username=%s" # SQL 指令
     value = (username, ) # 與後端程式互動的變數
+    mycursor = mydb.cursor()
     mycursor.execute(sql, value) # 卡車執行，前往資料執行 SQL 指令
     myresult=mycursor.fetchall() # fetchall()將所有資料取出
+    mycursor.close()
     if username=="" or password=="":
         return redirect(url_for('error', message='請輸入帳號、密碼'))
     elif username == myresult[0][2] and password == myresult[0][3]:
@@ -72,15 +80,18 @@ def member():
         return redirect("/")
     #使用 INNER JOIN 透過外鍵 member_id 取出 message 資料表中留言者的名字(name)及對應的留言(content)
     name=session["name"]
+    mycursor = mydb.cursor()
     mycursor.execute("SELECT member.name, message.content FROM member INNER JOIN message ON member.id = message.member_id")
     myNameContent=mycursor.fetchall()
+    mycursor.close()
     return render_template(
         "member.html", 
         header="歡迎光臨，這是會員頁", 
         login_infor=f"{name}，歡迎登入系統", 
         signout="登出系統", 
         come_message="快來留言吧",
-        content=myNameContent
+        name = name,
+        content=myNameContent,
     )
     
 # 處理路徑 /message 的對應函式
@@ -93,8 +104,10 @@ def message():
         id=int(session["id"]) # 存放在 cookie 的 id
         sql=("INSERT INTO message (member_id, content) VALUES(%s, %s)") # 將資料放進留言表當中
         value=(id, content)
+        mycursor = mydb.cursor()
         mycursor.execute(sql, value)
         mydb.commit()
+        mycursor.close()
         print(mycursor.rowcount, "record inserted.") # 會員輸入內容，確認放進留言資料表中
         return redirect("/member")
     return redirect("/") # 防止url直接進入此網頁
@@ -123,14 +136,20 @@ def signup():
     password=request.form["password-signUp"]
     sql = "SELECT username FROM member WHERE username = %s"
     value = (username, )
+    mycursor = mydb.cursor()
     mycursor.execute(sql, value)
     myresult=mycursor.fetchall() # 卸下卡車(cursor)上的資料，指定給 myresult
     # 確認新註冊的 username 是否已經在資料庫(database)當中
+    print(username)
+    print(myresult)
+    print(username in myresult)
     if name == "" or username == "" or password == "": # 姓名、帳號、密碼，留白時會出現無效註冊
         return render_template("status.html", header="失敗頁面", login_infor="無效註冊")
-    elif username in myresult:
-        return render_template("status.html", header="失敗頁面", login_infor="帳號已經被註冊")
-    elif username not in myresult:
+    for resultUsername in myresult:
+        result = ''.join(resultUsername)
+        if result == username:
+            return render_template("status.html", header="失敗頁面", login_infor="帳號已經被註冊")
+    if username not in myresult:
         sql = "INSERT INTO member(name, username, password) VALUES (%s, %s, %s)" 
         value = (name, username, password)
         mycursor.execute(sql, value) # 卡車裝載指令 sql, 及%s所用的值 
@@ -141,10 +160,17 @@ def signup():
 # 處理路徑 /api/member
 @week7.route("/api/member", methods = ["GET"])
 def find_member ():
-    mycursor.execute("select * from member")
+    username = request.args.get("username")
+    mydict = create_dict()
+    mycursor = mydb.cursor()
+    sql = ("select * from member where username = %s")
+    value = (username, )
+    mycursor.execute(sql, value)
     myresult = mycursor.fetchall()
-    print(type(myresult))
-    return ("find_member")
+    for row in myresult:
+        mydict.add(row[0], ({"name" : row[1], "username" : row[2], "password" : row[3]}))
+    json_object = json.dumps(mydict, indent = 2, sort_keys = True)
+    return (json_object)
 
 # 啟動網站伺服器，可透過 port 參數指定埠號
 week7.run(port=3000)

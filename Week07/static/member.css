@@ -99,3 +99,44 @@ header{
     margin-top: 1px;
     box-shadow: 0 0 15px 3px #ffac267a;
 }
+
+.find-member-title{
+    position: relative;
+    top:15px; left: 0.5em;
+    font-weight: bold;
+    font-size: 1.1em;
+    z-index: 2;
+}
+
+.find-member-flex{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.find-button{
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+
+}
+
+.find-button-icon{
+    position: relative;
+    margin-top: 10px;
+    font-weight: bolder;
+    margin-right: 2px;
+}
+
+
+.find-button-icon > label > p:hover{
+    box-shadow: 0 0 15px 3px #ffac267a;
+}
+
+.find-button-icon > label > p{
+    /* position:absolute; */
+    width:3em; 
+    background-color: rgb(76, 246, 183);
+    border-radius: 20%;
+}
