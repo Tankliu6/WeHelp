@@ -1,4 +1,5 @@
-from flask import Flask # 載入 Flask
+from asyncio.windows_events import NULL
+from flask import Flask, jsonify # 載入 Flask
 from flask import request # 載入 Request 物件
 from flask import render_template # 載入 render_template
 from flask import redirect
@@ -157,17 +158,20 @@ def signup():
 # 處理路徑 /api/member
 @week7.route("/api/member", methods = ["GET"])
 def find_member ():
-    username = request.args.get("username")
-    mydict = create_dict()
-    mycursor = mydb.cursor()
-    sql = ("select * from member where username = %s")
-    value = (username, )
-    mycursor.execute(sql, value)
-    myresult = mycursor.fetchall()
-    for row in myresult:
-        mydict.add(row[0], ({"name" : row[1], "username" : row[2], "password" : row[3]}))
-    json_object = json.dumps(mydict, indent = 2, sort_keys = True)
-    return (json_object)
-
+    try:
+        username = request.args.get("username")
+        mycursor = mydb.cursor()
+        sql = ("select * from member where username = %s")
+        value = (username, )
+        mycursor.execute(sql, value)
+        myresult = mycursor.fetchall()
+        print(myresult)
+        if myresult == [] or session["user-status"] == "未登入":
+            print("pass")
+            return jsonify({"data" : None})
+        return jsonify(myresult)
+    except:
+        000
+    #     return (Exception)
 # 啟動網站伺服器，可透過 port 參數指定埠號
 week7.run(port=3000)
