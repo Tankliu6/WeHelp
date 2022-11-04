@@ -1,5 +1,5 @@
 from asyncio.windows_events import NULL
-from flask import Flask, jsonify # 載入 Flask
+from flask import Flask, jsonify, make_response # 載入 Flask
 from flask import request # 載入 Request 物件
 from flask import render_template # 載入 render_template
 from flask import redirect
@@ -156,22 +156,39 @@ def signup():
         return redirect("/")
 
 # 處理路徑 /api/member
-@week7.route("/api/member", methods = ["GET"])
+@week7.route("/api/member", methods = ["GET", "PATCH"])
 def find_member ():
     try:
-        username = request.args.get("username")
-        mycursor = mydb.cursor()
-        sql = ("select * from member where username = %s")
-        value = (username, )
-        mycursor.execute(sql, value)
-        myresult = mycursor.fetchall()
-        print(myresult)
-        if myresult == [] or session["user-status"] == "未登入":
-            print("pass")
-            return jsonify({"data" : None})
-        return jsonify(myresult)
+        if request.method == "GET":
+            username = request.args.get("username", None)
+            mycursor = mydb.cursor()
+            sql = ("select * from member where username = %s")
+            value = (username, )
+            mycursor.execute(sql, value)
+            myresult = mycursor.fetchall()
+            if myresult == [] or session["user-status"] == "未登入":
+                print("查詢，出現異常")
+                return jsonify({"data" : None})
+            return jsonify(myresult)
+        if request.method == "PATCH":
+            req = request.get_json()
+            nameToChange = req['nameToChange']
+            username = session['username']
+            mycursor = mydb.cursor()
+            sql = ("update member set name = %s where username = %s")
+            value = (nameToChange, username)
+            mycursor.execute(sql, value)
+            mydb.commit()
+            res = make_response(jsonify({"ok" : True}))
+            if session['user-status'] == '未登入':
+                print('更新出現異常')
+                return make_response(jsonify({"error" : True}))
+            return (res)
     except:
-        000
-    #     return (Exception)
+        print({"login" : "Please check your membership or login-status"})
+    finally:
+        mycursor.close()
+        print('mycursor is closed')
+
 # 啟動網站伺服器，可透過 port 參數指定埠號
 week7.run(port=3000)

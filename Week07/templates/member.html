@@ -34,18 +34,20 @@
                 </div>
                 <div>
                     <div class="login-title">{{name}}，歡迎登入系統</div>
-                    <a class=signout href="/signout">
-                        {{ signout }}
-                    </a>
                     <div class="find-member-title"><label class="login-account-password" for="find-member-name">查詢會員姓名</label></div>
                     <div class="find-member-flex">
                         <div class="find-button-icon"><label for="click-find-name"><p>查詢</p></div>
                         <div class="login-form-AccPass"><input type="text" id="find-member-name" name="username"></div>
                         <div class="find-button"><button onclick=find_name() id="click-find-name">查詢</button></div>   
                     </div>
-                    <div class="find-member-container">
-
+                    <div class="find-member-container"></div> <!-- 放查詢會員結果 -->
+                    <div class="find-member-title"><label class="login-account-password" for="change-member-name">更新我的姓名</label></div>
+                    <div class="find-member-flex">
+                        <div class="find-button-icon"><label for="click-member-name"><p>更新</p></div>
+                        <div class="login-form-AccPass"><input type="text" id="change-member-name" name="changename"></div>
+                        <div class="find-button"><button onclick=change_name() id="click-member-name">更新</button></div>   
                     </div>
+                    <div class="change-member-container"></div>
                 </div>
             </div>
         </div>
