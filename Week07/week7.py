@@ -160,17 +160,20 @@ def signup():
 def find_member ():
     try:
         if request.method == "GET":
+            if myresult == [] or session["user-status"] == "未登入":
+                print("查詢，出現異常")
+                return jsonify({"data" : None})
             username = request.args.get("username", None)
             mycursor = mydb.cursor()
             sql = ("select * from member where username = %s")
             value = (username, )
             mycursor.execute(sql, value)
             myresult = mycursor.fetchall()
-            if myresult == [] or session["user-status"] == "未登入":
-                print("查詢，出現異常")
-                return jsonify({"data" : None})
             return jsonify(myresult)
         if request.method == "PATCH":
+            if session['user-status'] == '未登入':
+                print('更新出現異常')
+                return make_response(jsonify({"error" : True}))
             req = request.get_json()
             nameToChange = req['nameToChange']
             username = session['username']
@@ -180,9 +183,6 @@ def find_member ():
             mycursor.execute(sql, value)
             mydb.commit()
             res = make_response(jsonify({"ok" : True}))
-            if session['user-status'] == '未登入':
-                print('更新出現異常')
-                return make_response(jsonify({"error" : True}))
             return (res)
     except:
         print({"login" : "Please check your membership or login-status"})

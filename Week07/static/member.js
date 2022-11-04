@@ -1,5 +1,5 @@
 // 插入一行結果
-function insertMemberName(text, tag){
+function insertTextLine(text, tag){
     // 取得 html 標籤位置
     console.log(tag)
     let divTag = document.querySelector(tag);
@@ -22,9 +22,9 @@ function find_name(){
     })
     .then(function(data){
         if (data.length == 1){ // 有搜尋到該會員才會有資料回傳
-            insertMemberName(`${data[0][1]}(${data[0][2]})`, `.find-member-container`)
+            insertTextLine(`${data[0][1]}(${data[0][2]})`, `.find-member-container`)
         }else{
-            insertMemberName(`無此會員姓名或聯絡官方`, `.find-member-container`)
+            insertTextLine(`無此會員姓名或聯絡官方`, `.find-member-container`)
         }
     })
 }
@@ -37,7 +37,7 @@ function change_name(){
     let entry = {
         nameToChange : nameToChange
     };
-    fetch(`/api/member`,{
+    fetch(`/api/member`, {
         method: "PATCH",
         credentials: "include",
         body: JSON.stringify(entry),
@@ -52,9 +52,9 @@ function change_name(){
     .then(function(data){
         console.log(data)
         if('ok' in data){
-            insertMemberName(`更新成功!`, `.change-member-container`)
+            insertTextLine(`更新成功!`, `.change-member-container`)
         }else{
-            insertMemberName(`更新失敗!`, `.change-member-container`)
+            insertTextLine(`更新失敗!`, `.change-member-container`)
         }
     })
 }
