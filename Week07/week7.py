@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from flask import Flask, jsonify, make_response # 載入 Flask
 from flask import request # 載入 Request 物件
 from flask import render_template # 載入 render_template
@@ -160,7 +159,7 @@ def signup():
 def find_member ():
     try:
         if request.method == "GET":
-            if myresult == [] or session["user-status"] == "未登入":
+            if session["user-status"] == "未登入":
                 print("查詢，出現異常")
                 return jsonify({"data" : None})
             username = request.args.get("username", None)
@@ -169,6 +168,8 @@ def find_member ():
             value = (username, )
             mycursor.execute(sql, value)
             myresult = mycursor.fetchall()
+            if myresult == []:
+                return jsonify({"data" : None})
             return jsonify(myresult)
         if request.method == "PATCH":
             if session['user-status'] == '未登入':

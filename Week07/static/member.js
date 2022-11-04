@@ -52,6 +52,7 @@ function change_name(){
     .then(function(data){
         console.log(data)
         if('ok' in data){
+            console.log(sessionStorage.getItem('user-status'))
             insertTextLine(`更新成功!`, `.change-member-container`)
         }else{
             insertTextLine(`更新失敗!`, `.change-member-container`)
